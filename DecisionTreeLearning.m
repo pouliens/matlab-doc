@@ -1,4 +1,4 @@
-function [tree] DecisionTreeLearning(examples,attribs,targets)
+function [tree] =DecisionTreeLearning(examples,attribs,targets)
 
 %DECISIONTREELEARNING - creates tree structure based on given examples and targets
 %
@@ -33,7 +33,7 @@ for i = 1:length(examples)
 	else 
 		exampleRight = [exampleRight;examples(i,:)]
 		targetsRight = vertcat(targetsRight,targets(i))
-	end
+    end
 end
 % attribs = attribs - {best}
 attribs(best) = 0
@@ -59,5 +59,6 @@ for i = 2:length(targets)
     if targets(i) ~= val
     result = 0
     return
+    end
 end
 result = 1

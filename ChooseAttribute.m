@@ -22,7 +22,7 @@ function [x] = remainder(examples, attributeNum, targets)
 
 function [x] = gain(examples, attributeNum, targets)
     [positives, negatives] = countTotal(targets);
-    x = information(positives, negatives) - remainder(examples, attiributeNum, targets)
+    x = information(positives, negatives) - remainder(examples, attributeNum, targets)
    
 function [positives, negatives] = count(examples, targets, attribColumn, attribValue)
   
