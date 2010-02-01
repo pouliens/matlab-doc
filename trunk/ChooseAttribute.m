@@ -9,7 +9,7 @@ function [best] = chooseAttribute(examples, attributes, targets)
 function [x] = infomation(positives, negatives)
 
     total = positives + negatives;
-
+    
     x = -positives/total *log2(positives/total) - negatives/total*log2(negatives/total)
     
 function [x] = remainder(examples, attributeNum, targets)

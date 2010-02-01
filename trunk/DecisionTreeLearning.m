@@ -53,7 +53,7 @@ else
 end
 tree.kids = {left,right}
 
-function [result] sameClass(targets)
+function [result] = sameClass(targets)
 val = targets(1)
 for i = 2:length(targets)
     if targets(i) ~= val
