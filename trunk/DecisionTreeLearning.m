@@ -7,58 +7,62 @@ function [tree] =DecisionTreeLearning(examples,attribs,targets)
 %	 targets: binary targets associated with examples
 %OUT: constructed tree
 if sameClass(targets)
-    tree.op = []
-    tree.kids = []
-    tree.class = targets(1)
+    tree.op = [];
+    tree.kids = [];
+    tree.class = targets(1);
     return
 end
-if isempty(find(attribs))
-    tree.op = []
-    tree.kids = []
-    tree.class = majorityValue(targets)
+if isempty(find(attribs,1));
+    tree.op = [];
+    tree.kids = [];
+    tree.class = majorityValue(targets);
     return
 end
-best = chooseAttribute(attribs,examples,targets)
-tree.op = best
-exampleLeft = []
-exampleRight = []
-targetsLeft = []
-targetsRight = []
-left = []
-right = []
+best = ChooseAttribute(examples,attribs,targets);
+tree.op = best;
+exampleLeft = [];
+exampleRight = [];
+targetsLeft = [];
+targetsRight = [];
+left = [];
+right = [];
 for i = 1:length(examples)
     if(examples(i,best) == 1)
-		exampleLeft = [exampleLeft;examples(i,:)]
-		targetsLeft = vertcat(targetsLeft,targets(i))
+		exampleLeft = [exampleLeft;examples(i,:)];
+		targetsLeft = vertcat(targetsLeft,targets(i));
 	else 
-		exampleRight = [exampleRight;examples(i,:)]
-		targetsRight = vertcat(targetsRight,targets(i))
+		exampleRight = [exampleRight;examples(i,:)];
+		targetsRight = vertcat(targetsRight,targets(i));
     end
 end
 % attribs = attribs - {best}
-attribs(best) = 0
+attribs(best) = 0;
 if isempty(exampleLeft)
-	left.op = []
-	left.kids = []
-	left.class = majorityValue(targets)
+	left.op = [];
+	left.kids = [];
+	left.class = majorityValue(targets);
 else
-	left = DecisionTreeLearning(examplesLeft,attribs,targetsLeft)
+	left = DecisionTreeLearning(exampleLeft,attribs,targetsLeft);
 end
 if isempty(exampleRight)
-	right.op = []
-	right.kids = []
-	right.class = majorityValue(targets)
+	right.op = [];
+	right.kids = [];
+	right.class = majorityValue(targets);
 else 
-	right = DecisionTreeLearning(examplesRight,attribs,targetsRight)
+	right = DecisionTreeLearning(exampleRight,attribs,targetsRight);
 end
-tree.kids = {left,right}
+tree.kids = {left,right};
 
 function [result] = sameClass(targets)
-val = targets(1)
+val = targets(1);
+result = 1;
 for i = 2:length(targets)
     if targets(i) ~= val
-    result = 0
+    result = 0;
     return
     end
 end
-result = 1
+
+function x = majorityValue(y)
+x = mode(y);
+

@@ -1,37 +1,39 @@
-function [best] = chooseAttribute(examples, attributes, targets)
-    best = 0;
+function [best] = ChooseAttribute(examples, attributes, targets)
+    best = 1;
+   
     for i =1:size(attributes)
         if gain(examples, i, targets) > best
             best = i;
         end
     end   
     
-function [x] = infomation(positives, negatives)
+function [x] = information(positives, negatives)
 
     total = positives + negatives;
     
-    x = -positives/total *log2(positives/total) - negatives/total*log2(negatives/total)
+    x = -positives/total *log2(positives/total) - negatives/total*log2(negatives/total);
     
 function [x] = remainder(examples, attributeNum, targets)
     x = 0;
     for value = 0:1
-        [positives, negatives] = count(examples, targets, attributeNum, value)
-        x = x + (positives + negatives)/length(targets)*information(positives, negatives)
+        [positives, negatives] = count(examples, targets, attributeNum, value);
+        x = x + (positives + negatives)/length(targets)*information(positives, negatives);
     end
        
 
 function [x] = gain(examples, attributeNum, targets)
     [positives, negatives] = countTotal(targets);
-    x = information(positives, negatives) - remainder(examples, attributeNum, targets)
+    x = information(positives, negatives) - remainder(examples, attributeNum, targets);
    
 function [positives, negatives] = count(examples, targets, attribColumn, attribValue)
   
     positives = 0;
     negatives = 0;
 
-    [m, n] = size(examples)
+    [m, n] = size(examples);
     
     for i=1:m
+       
        if examples(i, attribColumn) == attribValue
            if targets(i) == 1
                positives = positives+1;
