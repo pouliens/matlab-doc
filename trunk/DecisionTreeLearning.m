@@ -26,7 +26,8 @@ targetsLeft = [];
 targetsRight = [];
 left = [];
 right = [];
-for i = 1:length(examples)
+[x,y] = size(examples);
+for i = 1:x
     if(examples(i,best) == 1)
 		exampleLeft = [exampleLeft;examples(i,:)];
 		targetsLeft = vertcat(targetsLeft,targets(i));
