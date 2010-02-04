@@ -1,9 +1,12 @@
 function [best] = ChooseAttribute(examples, attributes, targets)
-    best = 1;
-   
+    best = 0;
+    highestGain = 0;
+
     for i =1:size(attributes)
-        if gain(examples, i, targets) > best
+        gain = gain(examples, i, targets)
+        if gain > highestGain
             best = i;
+            highestGain = gain;
         end
     end   
     
