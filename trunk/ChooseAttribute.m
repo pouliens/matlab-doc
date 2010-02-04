@@ -2,9 +2,9 @@ function [best] = ChooseAttribute(examples, attributes, targets)
     best = 0;
     highestGain = 0;
 
-    for i =1:size(attributes)
+    for i =1:length(attributes)
         if attributes(i) == 1
-            gain = gain(examples, i, targets)
+            gain = abs(gain(examples, i, targets));
             if gain > highestGain
                 best = i;
                 highestGain = gain;
@@ -14,6 +14,15 @@ function [best] = ChooseAttribute(examples, attributes, targets)
     
 function [x] = information(positives, negatives)
 
+    if negatives == 0
+        x = 1;
+        return
+    end
+    if positives == 0
+        x = 1;
+        return
+    end
+    
     total = positives + negatives;
     x = -positives/total *log2(positives/total) - negatives/total*log2(negatives/total);
     
