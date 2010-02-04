@@ -12,7 +12,7 @@ if sameClass(targets)
     tree.class = targets(1);
     return
 end
-if isempty(find(attribs,1));
+if isempty(find(attribs));
     tree.op = [];
     tree.kids = [];
     tree.class = majorityValue(targets);
