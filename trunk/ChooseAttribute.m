@@ -3,17 +3,18 @@ function [best] = ChooseAttribute(examples, attributes, targets)
     highestGain = 0;
 
     for i =1:size(attributes)
-        gain = gain(examples, i, targets)
-        if gain > highestGain
-            best = i;
-            highestGain = gain;
+        if attributes(i) == 1
+            gain = gain(examples, i, targets)
+            if gain > highestGain
+                best = i;
+                highestGain = gain;
+            end 
         end
     end   
     
 function [x] = information(positives, negatives)
 
     total = positives + negatives;
-    
     x = -positives/total *log2(positives/total) - negatives/total*log2(negatives/total);
     
 function [x] = remainder(examples, attributeNum, targets)
