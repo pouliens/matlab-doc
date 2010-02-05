@@ -1,0 +1,12 @@
+function RunDecisionTreeLearning(targetNum)
+
+[examples, targets] = loaddata('cleandata_students.txt');
+
+attributes = getAUArray();
+
+targets = remap(targetNum, targets);
+
+tree = getDecisionTree;
+(examples, attributes, targets)
+
+DrawDecisionTree(tree,emolab2str(targetNum))
