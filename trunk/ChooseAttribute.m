@@ -5,7 +5,9 @@ function [best] = ChooseAttribute(examples, attributes, targets)
     for i =1:length(attributes)
         if attributes(i) == 1
             gain = abs(gain(examples, i, targets));
-            if gain > highestGain
+            
+            % if gain > highestGain -- seems to break the code...
+            if gain >= highestGain
                 best = i;
                 highestGain = gain;
             end 
@@ -24,13 +26,13 @@ function [x] = information(positives, negatives)
     end
     
     total = positives + negatives;
-    x = -positives/total *log2(positives/total) - negatives/total*log2(negatives/total);
+    x = -(positives/total) *log2(positives/total) - (negatives/total)*log2(negatives/total);
     
 function [x] = remainder(examples, attributeNum, targets)
     x = 0;
     for value = 0:1
         [positives, negatives] = count(examples, targets, attributeNum, value);
-        x = x + (positives + negatives)/length(targets)*information(positives, negatives);
+        x = x + ((positives + negatives)/length(targets))*information(positives, negatives);
     end
        
 
