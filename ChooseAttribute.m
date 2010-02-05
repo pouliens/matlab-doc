@@ -6,8 +6,8 @@ function [best] = ChooseAttribute(examples, attributes, targets)
         if attributes(i) == 1
             gain = abs(gain(examples, i, targets));
             
-            % if gain > highestGain -- seems to break the code...
-            if gain >= highestGain
+            % if gain >= highestGain -- seems to produce weird trees
+            if gain > highestGain
                 best = i;
                 highestGain = gain;
             end 
