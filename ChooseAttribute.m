@@ -6,8 +6,10 @@ function [best] = ChooseAttribute(examples, attributes, targets)
         if attributes(i) == 1
             gain = abs(gain(examples, i, targets));
             
-            % if gain >= highestGain -- seems to produce weird trees
-            if gain > highestGain
+            % if gain > highestGain -- seems break code for fear (gives a
+            % node with label 0), however, produces much shorter trees
+            % where it works... 
+            if gain >= highestGain
                 best = i;
                 highestGain = gain;
             end 

@@ -32,7 +32,6 @@ right = [];
 [x,y] = size(examples);
 for i = 1:x
     if(best ~= 0)
-        
         if(examples(i,best) == 1)
             exampleLeft = [exampleLeft;examples(i,:)];
             targetsLeft = vertcat(targetsLeft,targets(i));
