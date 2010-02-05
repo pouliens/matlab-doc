@@ -2,7 +2,7 @@ function [ bool ] = evaluateTree(T, attributes )
 % T = decisionTree
 % Return value evaluated by tree T
 
-if(length(T.kids) == 0)
+if(isempty(T.kids))
     bool = T.class;
     return
 else
