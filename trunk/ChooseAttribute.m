@@ -1,29 +1,37 @@
 function [best] = ChooseAttribute(examples, attributes, targets)
-    best = 0;
-    highestGain = 0;
+    best = firstNonZero(attributes);
+    highestGain = gain(examples, best, targets);
 
-    for i =1:length(attributes)
+    for i = best:length(attributes)
         if attributes(i) == 1
-            gain = abs(gain(examples, i, targets));
+            gain = gain(examples, i, targets);
             
             % if gain > highestGain -- seems break code for fear (gives a
             % node with label 0), however, produces much shorter trees
             % where it works... 
-            if gain >= highestGain
+            if gain > highestGain
                 best = i;
                 highestGain = gain;
             end 
         end
-    end   
+    end  
+    
+function [x] = firstNonZero(attributes)    
+    for i =1:length(attributes)
+        if attributes(i) == 1
+            x = i;
+            return
+        end
+    end
     
 function [x] = information(positives, negatives)
 
     if negatives == 0
-        x = 1;
+        x = 0;
         return
     end
     if positives == 0
-        x = 1;
+        x = 0;
         return
     end
     
