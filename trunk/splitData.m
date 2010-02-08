@@ -16,7 +16,8 @@ for i=1:m
 
 end
 
-
+%this is retarded but it works... should be setting dimensions in the zeros
+%statement...
 trainingSet(1, :) = [];
 
 
