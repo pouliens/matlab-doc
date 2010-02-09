@@ -4,7 +4,7 @@ function [ predictions ] = testTrees( T, x )
 
 predictions = [];
 
-m = length(x);
+[m,n] = size(x);
 
 for i = 1:m
     for j=1:length(T)
