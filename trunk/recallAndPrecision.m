@@ -1,6 +1,6 @@
 % produces a vector for recall rates and a vector for precision rates from
 % a confusion matrix
-function [recall, precision] = recallAndPrecsision(confusionMatrix)
+function [recall, precision] = recallAndPrecision(confusionMatrix)
 
     recall = zeros(length(confusionMatrix), 1);
     precision = zeros(length(confusionMatrix), 1);
