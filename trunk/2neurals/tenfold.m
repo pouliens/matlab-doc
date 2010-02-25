@@ -1,26 +1,37 @@
-function tenfold()
+function tenfold(PARAMS)
 
-[x,y] = loaddata('cleandata_students.txt');
-[x,y] = ANNdata(x,y);
+
+
 confMatrix = zeros(6);
-net = newff(PARAMS);
-net.trainParam.show = ;
-net.trainParam.lr = ;
-net.trainParam.epochs = ;
-net.trainParam.goal = ;
+
+
+
+%net.trainParam.show = ;
+%net.trainParam.lr = ;
+%net.trainParam.epochs = ;
+%net.trainParam.goal = ;
 for i = 1:10	
 	% Train and test for fold
+    [x,y] = loaddata('cleandata_students.txt');
 	[training,validation,trainingTargets,validationTargets] = splitData(x,y,i);
+    orignValidationTargets = validationTargets;
+    [training, trainingTargets] = ANNdata(training,trainingTargets);
+    [validation, validationTargets] = ANNdata(validation, validationTargets);
+    
+    net = newff(training, trainingTargets);
 	foldnet = train(net,training,trainingTargets);
-	predictions = testANN(foldnet,validation);
+	nnOutputs = sim(foldnet, validation);
 	
+    predictions = NNout2labels(nnOutputs);
+    predictions = predictions';
 	% Calc fold statistics
-	foldMatrix = confusionMatrix(validationTargets,predictions);
+	foldMatrix = confusionMatrix(orignValidationTargets,predictions);
 	[foldRecall,foldPrecision] = recallAndPrecision(foldMatrix)
 	foldfmeasure = fMeasure(1,foldRecall,foldPrecision)
 	
 	confMatrix = confMatrix + foldMatrix;
 end
 % Calc average statistics
+confMatrix
 [recall,precision] = recallAndPrecision(confMatrix)
 fmeasure = fMeasure(1,recall,precision)

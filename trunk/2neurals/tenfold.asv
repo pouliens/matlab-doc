@@ -1,0 +1,13 @@
+function [ output_args ] = tenfold( inputs, targets, )
+%TENFOLD Summary of this function goes here
+%   Detailed explanation goes here
+
+[x, y] = loaddata('cleandata_students.txt');
+confMatrix = zeros(6);
+
+for i = 1:10
+    [training, validation, trainingTargets, validationTargets] = splitData(x, y, i);
+    net = newFF
+
+end
+
