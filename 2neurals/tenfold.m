@@ -1,4 +1,4 @@
-function tenfold(PARAMS)
+function [trainedNetwork] =  tenfold(PARAMS);
 
 
 
@@ -18,12 +18,12 @@ for i = 1:10
     [training, trainingTargets] = ANNdata(training,trainingTargets);
     [validation, validationTargets] = ANNdata(validation, validationTargets);
     
-    net = newff(training, trainingTargets);
+    net = newff(training, trainingTargets, PARAMS);
 	foldnet = train(net,training,trainingTargets);
 	nnOutputs = sim(foldnet, validation);
 	
     predictions = NNout2labels(nnOutputs);
-    predictions = predictions';
+    %predictions = predictions';
 	% Calc fold statistics
 	foldMatrix = confusionMatrix(orignValidationTargets,predictions);
 	[foldRecall,foldPrecision] = recallAndPrecision(foldMatrix)
