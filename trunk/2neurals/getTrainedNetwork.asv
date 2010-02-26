@@ -23,7 +23,6 @@ net.trainParam.epochs = 500;
 %net.trainParam.goal = ;
 
 [x, y] = loaddata('cleandata_students.txt');
-originalTargets = y;
 
 
 [training,validation,trainingTargets,validationTargets] = splitData7525(x,y,1);
@@ -38,9 +37,5 @@ originalTargets = y;
     
     
     %output some performance data
-    predictions = testANN(trainedNetwork, x);
-    matrix =  confusionMatrix(originalTargets,predictions)
-    [Recall,Precision] = recallAndPrecision(matrix)
-    Fmeasure = fMeasure(1,Recall,Precision)
-    
+    predictions = testANN(trainedNetw
     
