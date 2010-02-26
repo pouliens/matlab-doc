@@ -1,5 +1,4 @@
-function [ trainingSet, validationSet, trainingTargets, validationTargets ] = splitData( dataSet, targets, nthDivision )
-% Set validationSet to rows of dataSet for nthDivision 10-fold, with rest forming trainingSet 
+function [ trainingSet, validationSet, trainingTargets, validationTargets ] = splitData4060( dataSet, targets, nthDivision )
 
 [m, n] = size(dataSet);
 
@@ -8,7 +7,7 @@ trainingSet = [];
 trainingTargets = [];
 validationTargets = [];
 
-offset = m / 10;
+offset = m / 4;
 base = (nthDivision-1)*offset + 1;
 divisionSet = [base:1:base+(offset-1)];
 
@@ -22,3 +21,6 @@ for i=1:m
     end
 
 end
+
+end
+
