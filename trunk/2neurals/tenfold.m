@@ -30,6 +30,8 @@ for i = 1:10
     orignValidationTargets = validationTargets;
     [training, trainingTargets] = ANNdata(training,trainingTargets);
     [validation, validationTargets] = ANNdata(validation, validationTargets);   
+    
+   
     VV.P = validation;
     VV.T = validationTargets;    
 
