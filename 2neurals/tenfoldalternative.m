@@ -4,8 +4,6 @@ function tenfold();
 
 confMatrix = zeros(6);
 
-
-
 %net.trainParam.show = ;
 %net.trainParam.lr = ;
 %net.trainParam.epochs = ;
