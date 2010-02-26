@@ -8,8 +8,8 @@ for i = 1:45
   pr = vertcat(pr, [0, 1]);
 end
 
-sizeofLayers = [10, 10, 6];
-transferFunctions = {'tansig', 'tansig', 'tansig'};
+sizeofLayers = [10, 6];
+transferFunctions = {'tansig', 'purelin'};
 trainingFunction = 'traingdx';
 learningFunction = 'learngdm';
 performanceFunction = 'mse';
@@ -26,12 +26,15 @@ net.trainParam.epochs = 500;
 [x,y] = loaddata('cleandata_students.txt');
 for i = 1:10	
 	[training,validation,trainingTargets,validationTargets] = splitData(x,y,i);
+    orignValidation = validation;
     orignValidationTargets = validationTargets;
     [training, trainingTargets] = ANNdata(training,trainingTargets);
     [validation, validationTargets] = ANNdata(validation, validationTargets);   
-    
-	foldnet = train(net,training,trainingTargets);
-	nnOutputs = sim(foldnet, validation)
+    VV.P = validation;
+    VV.T = validationTargets;    
+
+    foldnet = train(net,training,trainingTargets, [], [], VV);
+    nnOutputs = sim(foldnet, validation)
 	
     predictions = NNout2labels(nnOutputs)
     %predictions = predictions';
