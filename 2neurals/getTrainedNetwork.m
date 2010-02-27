@@ -26,21 +26,21 @@ net.trainParam.epochs = 500;
 originalTargets = y;
 
 
-[training,validation,trainingTargets,validationTargets] = splitData7525(x,y,1);
+[training,validation,trainingTargets,validationTargets] = splitData7525(x,y,3);
     
 [training, trainingTargets] = ANNdata(training,trainingTargets);
 [validation, validationTargets] = ANNdata(validation, validationTargets);   
-    [x, y] = ANNdata(x, y);
-   
-    VV.P = validation;
-    VV.T = validationTargets;    
-    trainedNetwork= train(net,training,trainingTargets, [], [], VV);
-    
-    
-    %output some performance data
-    predictions = testANN(trainedNetwork, x);
-    matrix =  confusionMatrix(originalTargets,predictions)
-    [Recall,Precision] = recallAndPrecision(matrix)
-    Fmeasure = fMeasure(1,Recall,Precision)
-    
+[x, y] = ANNdata(x, y);
+
+VV.P = validation;
+VV.T = validationTargets;    
+trainedNetwork= train(net,training,trainingTargets, [], [], VV);
+
+
+%output some performance data
+predictions = testANN(trainedNetwork, x);
+matrix =  confusionMatrix(originalTargets,predictions)
+[Recall,Precision] = recallAndPrecision(matrix)
+Fmeasure = fMeasure(1,Recall,Precision)
+
     
