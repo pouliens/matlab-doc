@@ -19,7 +19,7 @@ net = newff(pr, sizeofLayers, transferFunctions, trainingFunction, learningFunct
 
 %net.trainParam.show = ;
 %net.trainParam.lr = ;
-net.trainParam.epochs = 500;
+net.trainParam.epochs = 100;
 %net.trainParam.goal = ;
 
 % Train and test for fold
