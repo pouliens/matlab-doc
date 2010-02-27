@@ -26,7 +26,7 @@ net.trainParam.epochs = 500;
 originalTargets = y;
 
 
-[training,validation,trainingTargets,validationTargets] = splitData7525(x,y,3);
+[training,validation,trainingTargets,validationTargets] = splitData7525(x,y,1);
     
 [training, trainingTargets] = ANNdata(training,trainingTargets);
 [validation, validationTargets] = ANNdata(validation, validationTargets);   
