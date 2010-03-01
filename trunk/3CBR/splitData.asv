@@ -1,0 +1,17 @@
+function [ trainingSet, validationSet ] = splitData( dataSet, timesToDivide, nthDivision )
+% Divide dataSet into timesToDivide sets, then put all sets except nthDivision into validationSet 
+
+validationSet = mxCreate
+
+[m, n] = size(dataSet);
+
+for i=1:m
+    if(i == nthDivision)
+        validationSet = dataSet(i, :);
+    else
+        vertcat(trainingSet)
+end
+
+
+end
+
