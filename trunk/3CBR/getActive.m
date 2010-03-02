@@ -1,0 +1,1 @@
+function active = getActive(examples)
