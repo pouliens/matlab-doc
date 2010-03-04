@@ -1,0 +1,1 @@
+function result= storeCases(cbr,Case);

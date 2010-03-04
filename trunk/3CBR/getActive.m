@@ -1,5 +1,5 @@
-function a = getActive(example)
-a=[]
+function [a] = getActive(example)
+a=[];
 m = length(example);
 for i=1:m
     b= example(i);
