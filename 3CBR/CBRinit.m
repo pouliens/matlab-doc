@@ -7,7 +7,7 @@ function [cbr] = CBRinit(examples, labels)
 %label, cases and index
 
 cbr.anger_list = struct('label','anger','cases',[],'index',[]);
-cbr.suprise_list =struct('label','surprise','cases',[],'index',[]);
+cbr.surprise_list =struct('label','surprise','cases',[],'index',[]);
 cbr.fear_list =struct('label','fear','cases',[],'index',[]);
 cbr.sad_list =struct('label','sadness','cases',[],'index',[]);
 cbr.happy_list =struct('label','happyness','cases',[],'index',[]);
@@ -20,7 +20,7 @@ for i=1:m
    [cbr] = storeCase(cbr,Case);
  
 end
-%[cbr] = buildIndexes(cbr);
+[cbr] = buildIndexes(cbr);
 
 
 end

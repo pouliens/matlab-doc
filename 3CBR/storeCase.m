@@ -19,7 +19,7 @@ switch Case.solution
         cbr.sad_list.cases =[cbr.sad_list.cases Case];
     case 6
         
-        cbr.suprise_list.cases = [cbr.suprise_list.cases Case];
+        cbr.surprise_list.cases = [cbr.surprise_list.cases Case];
     otherwise
         error('Unknown emotion label');
 end
