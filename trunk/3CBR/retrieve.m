@@ -4,6 +4,7 @@ temp_au_list=au_list;
 cases_list=[];
 best_cases=[];
 
+%Matching the paper algorithm - not sure whether we want the au removal or not
 for i=1:length(cbr.clusters)
    matching = intersect(cbr.clusters(i),temp_au_list);
    if (~isempty(matching))
@@ -28,16 +29,39 @@ similarities = [];
 for i=1:length(best_cases)
    similarities = [similarities similarity(newcase,best_cases(i))]; 
 end
-maxSims = maximumIndices(similarities);
+maxSims = maximum(similarities);
 if (length(maxSims) == 1)
    Case = best_cases(maxSims(1));
 else
-    % Select on typicality
-    typicalities = [best_cases.typicality];
-    maxTyps = maximumIndices(typicalities);
-    if (length(maxTyps) == 1)
-       Case = best_cases(maxTyps(1)); 
-    else
-       % Select randomly? 
-    end 
+    % Select on typicality (selecting random on tie)
+    allTyps = [best_cases.typicality];
+	typicalities = [];
+	for i = 1:length(maxSims) 
+		typicalities = [typicalities best_cases(maxSims(i)).typicality]
+	end
+	index = randMaximum(typicalities);
+	Case = best_cases(index);
 end
+
+function [result] = maximum(vals)
+maximum = max(vals);
+result = [];
+for i = 1:length(vals)
+	if(vals(i) == maximum)
+		result = [result i];
+	end
+end
+
+function [result] = randMax(vals)
+maximum = max(vals);
+maximums = [];
+for i = 1:length(vals)
+	if(vals(i) == maximum)
+		maximums = [maximums i];
+	end
+end
+index = randInt(1,length(maximums));
+result = maximums(index);
+
+function [x] = randInt(m,n)
+x = floor((n-m+1)*rand+m);
