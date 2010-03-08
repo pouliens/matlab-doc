@@ -43,4 +43,4 @@ matrix =  confusionMatrix(originalTargets,predictions)
 [Recall,Precision] = recallAndPrecision(matrix)
 Fmeasure = fMeasure(1,Recall,Precision)
 
-    
+   
