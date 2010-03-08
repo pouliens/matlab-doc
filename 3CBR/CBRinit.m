@@ -5,13 +5,10 @@ function [cbr] = CBRinit(examples, labels)
 %initialises cbr lists. cases organised in clusters i.e vector for each
 %emotion category, each emotion vector furthermore has 3 vectors corresponding to 
 %label, cases and index
-
-cbr.anger_list = struct('label','anger','cases',[],'index',[]);
-cbr.surprise_list =struct('label','surprise','cases',[],'index',[]);
-cbr.fear_list =struct('label','fear','cases',[],'index',[]);
-cbr.sad_list =struct('label','sadness','cases',[],'index',[]);
-cbr.happy_list =struct('label','happyness','cases',[],'index',[]);
-cbr.disgust_list =struct('label','disgust','cases',[],'index',[]);
+cbr.clusters = []; % clusters ordered to match emo
+for i=1:6
+    cbr.clusters = [cbr.clusters struct('label',emolab2str(i),'cases',[],'index',[])];
+end
 
 for i=1:m
    
@@ -20,7 +17,7 @@ for i=1:m
    [cbr] = storeCase(cbr,Case);
  
 end
-[cbr] = buildIndexes(cbr);
+%[cbr] = buildIndexes(cbr); - no longer needed
 
 
 end

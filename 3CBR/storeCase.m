@@ -1,27 +1,23 @@
 function [result] = storeCase(cbr,Case)
 
-%append case the relevant case list
-switch Case.solution
-    case 1
-       
-      cbr.anger_list.cases= [cbr.anger_list.cases Case];
-    case 2
-       
-       cbr.disgust_list.cases = [cbr.disgust_list.cases Case];
-    case 3
-         
-         cbr.fear_list.cases = [cbr.fear_list.cases Case];
-    case 4
-         
-        cbr.happy_list.cases = [cbr.happy_list.cases Case];
-    case 5
-         
-        cbr.sad_list.cases =[cbr.sad_list.cases Case];
-    case 6
-        
-        cbr.surprise_list.cases = [cbr.surprise_list.cases Case];
-    otherwise
-        error('Unknown emotion label');
-end
+%append case the relevant case list & increment typicality if it already
+%exists
+    caseNum = exists(cbr.clusters(Case.solution).cases, Case.problem);
+    if (caseNum == 0)
+      cbr.clusters(Case.solution).cases = [cbr.clusters(Case.solution).cases Case];
+      cbr.clusters(Case.solution).index = union(cbr.clusters(Case.solution).index, Case.problem);
+    else
+       cbr.clusters(Case.solution).cases(caseNum).typicality = cbr.clusters(Case.solution).cases(caseNum).typicality + 1;
+    end
 result = cbr;
-end
+
+function index = exists(cases,problem)
+
+    for j=1:length(cases)
+        c = setdiff(problem,cases(j).problem);   
+        if  (isempty(c))
+            index = j;
+            return
+        end
+    end
+index = 0;
