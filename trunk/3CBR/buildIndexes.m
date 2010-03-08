@@ -46,7 +46,7 @@ function [result] = buildIndexes(cbr);
           Case= cbr.surprise_list.cases(i);
           if(characterize(cbr.surprise_list.cases,Case.problem)==1)
              
-           cbr.surprise_listindex = union (cbr.surprise_list.index, Case.problem);
+           cbr.surprise_list.index = union (cbr.surprise_list.index, Case.problem);
           end
        end
       
