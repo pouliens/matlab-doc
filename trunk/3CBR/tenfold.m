@@ -1,47 +1,17 @@
-function [trainedNetwork] =  tenfold();
+function tenfold();
 
 confMatrix = zeros(6);
-
-% parameters for newff:
-pr = [];
-for i = 1:45
-  pr = vertcat(pr, [0, 1]);
-end
-
-sizeofLayers = [15, 6];
-transferFunctions = {'tansig', 'purelin'};
-trainingFunction = 'trainscg';
-learningFunction = 'learngdm';
-performanceFunction = 'mse';
-
-
-net = newff(pr, sizeofLayers, transferFunctions, trainingFunction, learningFunction, performanceFunction);
-
-%net.trainParam.show = ;
-%net.trainParam.lr = ;
-net.trainParam.epochs = 100;
-%net.trainParam.goal = ;
 
 % Train and test for fold
 [x,y] = loaddata('cleandata_students.txt');
 for i = 1:10	
 	[training,validation,trainingTargets,validationTargets] = splitData(x,y,i);
-    orignValidation = validation;
-    orignValidationTargets = validationTargets;
-    [training, trainingTargets] = ANNdata(training,trainingTargets);
-    [validation, validationTargets] = ANNdata(validation, validationTargets);   
-    
-   
-    VV.P = validation;
-    VV.T = validationTargets;    
-
-    foldnet = train(net,training,trainingTargets, [], [], VV);
-    nnOutputs = sim(foldnet, validation)
+    cbr = CBRinit(training, trainingTargets);
 	
-    predictions = NNout2labels(nnOutputs)
-    %predictions = predictions';
+    predictions = testCBR(cbr, validation, validationTargets);
+
 	% Calc fold statistics
-	foldMatrix = confusionMatrix(orignValidationTargets,predictions)
+	foldMatrix = confusionMatrix(validationTargets,predictions)
 	[foldRecall,foldPrecision] = recallAndPrecision(foldMatrix)
 	foldfmeasure = fMeasure(1,foldRecall,foldPrecision)
 	
