@@ -1,19 +1,19 @@
 function [Case] = retrieve(cbr, newcase)
-au_list = newcase.problems;
+au_list = newcase.problem;
 temp_au_list=au_list; 
 cases_list=[];
 best_cases=[];
 
 %Matching the paper algorithm - not sure whether we want the au removal or not
 for i=1:length(cbr.clusters)
-   matching = intersect(cbr.clusters(i),temp_au_list);
+   matching = intersect(cbr.clusters(i).index,temp_au_list);
    if (~isempty(matching))
        cases_list = [cases_list cbr.clusters(i).cases];
-       temp_au_list = setdiff(temp_au_list,matching);
+       %temp_au_list = setdiff(temp_au_list,matching);
    end
-   if (isempty(temp_au_list)
-       break;
-   end
+   %if (isempty(temp_au_list))
+   %    break;
+   %end
 end
 
 %Re-establish AUs-list. Examine the cases of cases-list. If the current
@@ -37,9 +37,9 @@ else
     allTyps = [best_cases.typicality];
 	typicalities = [];
 	for i = 1:length(maxSims) 
-		typicalities = [typicalities best_cases(maxSims(i)).typicality]
+		typicalities = [typicalities best_cases(maxSims(i)).typicality];
 	end
-	index = randMaximum(typicalities);
+	index = randMax(typicalities);
 	Case = best_cases(index);
 end
 
