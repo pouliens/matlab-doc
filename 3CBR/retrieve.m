@@ -1,6 +1,6 @@
 function [Case] = retrieve(cbr, newcase)
 au_list = newcase.problem;
-temp_au_list=au_list; 
+temp_au_list=au_list;
 cases_list=[];
 best_cases=[];
 
