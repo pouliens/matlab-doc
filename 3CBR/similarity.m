@@ -1,9 +1,21 @@
-function [Sim] = similarity(newcase, oldcase)
 
-% Sim = proportion of shared AUs relative to largest vector
-denom = max(length(newcase.problem),length(oldcase.problem));
-numer = length(intersect(newcase.problem,oldcase.problem));
+%uses jaccard simmilarity coefficient
+
+function [Sim] = similarity(newcase, oldcase)
+%denom = max(length(newcase.problem),length(oldcase.problem));
+intersecting = intersect(newcase.problem, oldcase.problem);
+numer = length(intersecting);
+
+denom = length(intersecting) + length(removeItems(newcase.problem, intersecting)) + length(removeItems(oldcase.problem, intersecting));
+
 Sim = numer / denom;
+end
+
+function [vector] = removeItems(fromVector, itemsToRemove)
+fromVector(ismember(fromVector, itemsToRemove)) = [];
+vector = fromVector;
+end
+
 
 %{
 % Sim = 2*number of AUs in common - number of different AUs
