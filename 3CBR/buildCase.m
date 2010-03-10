@@ -2,4 +2,4 @@ function Case = buildCase(AUVector,label)
 
 Case.problem=AUVector;
 Case.solution=label;
-Case.typicality = 0;
+Case.typicality = 1;

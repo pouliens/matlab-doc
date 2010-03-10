@@ -27,7 +27,7 @@ end
 % Search best-cases for most similar
 similarities = [];
 for i=1:length(best_cases)
-   similarities = [similarities similarity(newcase,best_cases(i))]; 
+   similarities = [similarities similarity(newcase,best_cases(i), cbr.clusters(best_cases(i).solution).index)]; 
 end
 maxSims = maximum(similarities);
 if (length(maxSims) == 1)
@@ -36,7 +36,7 @@ else
     % Select on typicality (selecting random on tie)
     allTyps = [best_cases.typicality];
 	typicalities = [];
-	for i = 1:length(maxSims) 
+	for i = 1:length(maxSims)
 		typicalities = [typicalities best_cases(maxSims(i)).typicality];
 	end
 	index = randMax(typicalities);
