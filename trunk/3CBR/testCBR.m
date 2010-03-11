@@ -1,15 +1,14 @@
-function [ predictions ] = testCBR( cbr, dataAUs, dataTargets )
+function [ predictions ] = testCBR( cbr, dataAUs)
 %Test the CBR with matrix of dataAUs and dataTargets
 %   builds a new case for each row of dataAUs and the corresponding
 %   dataTargets and retrives most similar case from cbr system.
 predictions = [];
-
-for i = 1:length(dataTargets)
+[m, n] = size(dataAUs);
+for i = 1:m
     activeAUs = getActive(dataAUs(i, :));
-    newCase = buildCase(activeAUs, dataTargets(i));
+    newCase = buildCase(activeAUs, 0);
     similarCase = retrieve(cbr, newCase);
-    if (similarCase.solution == newCase.solution)
-        cbr = retain(cbr, newCase);
-    end
+    newCase.solution = similarCase.solution;
+    %retain(cbr, newCase);
     predictions = [predictions similarCase.solution];
 end

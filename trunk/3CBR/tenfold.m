@@ -8,11 +8,12 @@ for i = 1:10
 	[training,validation,trainingTargets,validationTargets] = splitData(x,y,i);
     cbr = CBRinit(training, trainingTargets);
 	
-    predictions = testCBR(cbr, validation, validationTargets);
+    predictions = testCBR(cbr, validation);
 
 	% Calc fold statistics
-	foldMatrix = confusionMatrix(validationTargets,predictions)
-	[foldRecall,foldPrecision] = recallAndPrecision(foldMatrix)
+	foldMatrix = confusionMatrix(validationTargets,predictions);
+	[foldRecall,foldPrecision] = recallAndPrecision(foldMatrix);
+    [foldRecall,foldPrecision]'
 	foldfmeasure = fMeasure(1,foldRecall,foldPrecision)
 	
 	confMatrix = confMatrix + foldMatrix;
