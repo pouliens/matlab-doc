@@ -41,7 +41,6 @@ missButInIndex = intersect(missing,index);
 missingButInIndexScore = length(missButInIndex);
 Sim = (matchingScore - missingScore + missingButInIndexScore)/maxScore;
 
-
 end
 
 
