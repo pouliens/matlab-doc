@@ -27,27 +27,48 @@ end
 % Search best-cases for most similar
 similarities = [];
 for i=1:length(best_cases)
-   similarities = [similarities similarity(newcase,best_cases(i), cbr.clusters(best_cases(i).solution).index)]; 
+   similar = similarity(newcase,best_cases(i), cbr.clusters(best_cases(i).solution).index);
+   similarities = [similarities similar];
 end
 maxSims = maximum(similarities);
+for i = 1:length(maxSims)
+    if (similarities(maxSims(i)) == 1)
+        Case = best_cases(maxSims(i));
+        return;
+    end
+end
+
 if (length(maxSims) == 1)
    Case = best_cases(maxSims(1));
 else
     % Select on typicality (selecting random on tie)
     allTyps = [best_cases.typicality];
 	typicalities = [];
+    similarityLabels = [];
 	for i = 1:length(maxSims)
 		typicalities = [typicalities best_cases(maxSims(i)).typicality];
-	end
-	index = randMax(typicalities);
-	Case = best_cases(index);
+        for j = 1: typicalities(i)
+            similarityLabels = [similarityLabels best_cases(maxSims(i)).solution];
+        end
+    end
+    
+	%index = randMax(typicalities);
+    %Case = best_cases(index);
+    modeLabel = randMaxMode(similarityLabels);
+    finalCases = [];
+    for i = 1:length(maxSims)
+        if (best_cases(maxSims(i)).solution == modeLabel)
+            finalCases = [finalCases best_cases(maxSims(i))];
+        end
+    end 	
+    Case = finalCases(randInt(1 , length(finalCases)));
 end
 
 function [result] = maximum(vals)
 maximum = max(vals);
 result = [];
 for i = 1:length(vals)
-	if(vals(i) == maximum)
+	if(abs(vals(i) - maximum) < 0.5)
 		result = [result i];
 	end
 end
@@ -62,6 +83,14 @@ for i = 1:length(vals)
 end
 index = randInt(1,length(maximums));
 result = maximums(index);
+
+% returns most frequent case labels - selects at random if multiple
+function [result] = randMaxMode(caseLabels)
+Y = sort(caseLabels); 
+N = histc(caseLabels,Y);
+Y(N==0) = [];
+N(N==0) = [];
+result = Y(randMax(N));
 
 function [x] = randInt(m,n)
 x = floor((n-m+1)*rand+m);
