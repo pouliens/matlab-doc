@@ -7,7 +7,6 @@ function [Sim] = similarity(newcase, oldcase, index)
 %denom = max(length(newcase.problem),length(oldcase.problem));
 intersecting = intersect(newcase.problem, oldcase.problem);
 numer = length(intersecting);
-%denom = length(intersecting) + length(removeItems(newcase.problem, intersecting)) + length(removeItems(oldcase.problem, intersecting));
 denom = length(union(newcase.problem, oldcase.problem));
 Sim = numer / denom;
 %}
@@ -40,7 +39,7 @@ matchingScore = length(intersection)*(oldcase.typicality+1);
 missing = setdiff(union(newcase.problem,oldcase.problem),intersection);
 missingScore = length(missing)*(oldcase.typicality+1);
 missButInIndex = intersect(missing,index);
-missingButInIndexScore = length(missButInIndex)*(oldcase.typicality + 1);
+missingButInIndexScore = length(missButInIndex);
 Sim = (matchingScore - missingScore + missingButInIndexScore)/maxScore;
 
 end
