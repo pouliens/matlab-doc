@@ -8,7 +8,7 @@ trainingSet = [];
 trainingTargets = [];
 validationTargets = [];
 
-offset = m / 10;
+offset = floor(m / 10);
 base = (nthDivision-1)*offset + 1;
 divisionSet = [base:1:base+(offset-1)];
 
