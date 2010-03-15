@@ -1,9 +1,10 @@
-function tenfold();
+function [fmeasuresForFold] = tenfold();
 
 confMatrix = zeros(6);
 
+fmeasuresForFold = []
 % Train and test for fold
-[x,y] = loaddata('cleandata_students.txt');
+[x,y] = loaddata('noisydata_students.txt');
 for i = 1:10	
 	[training,validation,trainingTargets,validationTargets] = splitData(x,y,i);
     cbr = CBRinit(training, trainingTargets);
@@ -15,6 +16,8 @@ for i = 1:10
 	[foldRecall,foldPrecision] = recallAndPrecision(foldMatrix);
     [foldRecall,foldPrecision]'
 	foldfmeasure = fMeasure(1,foldRecall,foldPrecision)
+    
+    fmeasuresForFold = [fmeasuresForFold ; foldfmeasure'];
 	
 	confMatrix = confMatrix + foldMatrix;
 end

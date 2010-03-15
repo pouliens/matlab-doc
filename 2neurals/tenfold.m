@@ -1,6 +1,8 @@
-function [trainedNetwork] =  tenfold();
+function [fmeasuresForFold] =  tenfold();
 
 confMatrix = zeros(6);
+
+fmeasuresForFold = [];
 
 % parameters for newff:
 pr = [];
@@ -23,7 +25,7 @@ net.trainParam.epochs = 500;
 %net.trainParam.goal = ;
 
 % Train and test for fold
-[x,y] = loaddata('cleandata_students.txt');
+[x,y] = loaddata('noisydata_students.txt');
 for i = 1:10	
 	[training,validation,trainingTargets,validationTargets] = splitData(x,y,i);
     orignValidation = validation;
@@ -44,6 +46,8 @@ for i = 1:10
 	foldMatrix = confusionMatrix(orignValidationTargets,predictions)
 	[foldRecall,foldPrecision] = recallAndPrecision(foldMatrix)
 	foldfmeasure = fMeasure(1,foldRecall,foldPrecision)
+    
+    fmeasuresForFold = [fmeasuresForFold ; foldfmeasure'];
 	
 	confMatrix = confMatrix + foldMatrix;
 end

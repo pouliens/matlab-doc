@@ -1,0 +1,10 @@
+%uses jaccard simmilarity coefficient
+
+function [Sim] = similarity(newcase, oldcase)
+%denom = max(length(newcase.problem),length(oldcase.problem));
+intersecting = intersect(newcase.problem, oldcase.problem);
+numer = length(intersecting);
+
+denom = 
+
+Sim = numer / denom;

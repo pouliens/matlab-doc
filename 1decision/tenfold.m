@@ -1,16 +1,27 @@
-function tenfold()
+function [fmeasuresForFold] =  tenfold()
 
-[x,y] = loaddata('cleandata_students.txt');
+[x,y] = loaddata('noisydata_students.txt');
 confMatrix = zeros(6);
+
+fmeasuresForFold = [];
+
 for i = 1:10
 	[training,validation,trainingTargets,validationTargets] = splitData(x,y,i);
 	trees = getTrees(training,trainingTargets);
 	predictions = testTrees(trees,validation);
-	confMatrix = confMatrix + confusionMatrix(validationTargets,predictions);
+	
+    foldConfMatrix =  confusionMatrix(validationTargets,predictions);
+    confMatrix = confMatrix + foldConfMatrix;
+    
+    [foldrecall, foldprecision] = recallAndPrecision(foldConfMatrix);
+    fmeasureFold = fMeasure(1,foldrecall,foldprecision);
+    fmeasuresForFold = [fmeasuresForFold ; fmeasureFold'];
+    
 end
 confMatrix
 [recall,precision] = recallAndPrecision(confMatrix)
-fmeasure = fMeasure(1,recall,precision)
+fmeasure = fMeasure(1,recall,precision);
+fmeasuresForFold;
 
 function [trees] = getTrees(examples,targets)
 attributes = getAUArray();
