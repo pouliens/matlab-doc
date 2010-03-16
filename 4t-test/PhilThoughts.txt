@@ -1,0 +1,35 @@
+CBR has highest mean and also lowest variance:
+
+0.0413 0.0239 0.0237  (4 dp)
+
+suggesting it is consistently more accurate than others. However these results
+are only obtained from testing a single noisy data set. Further tests may be 
+needed to be confident that the results are not impacted by specific features of
+this data set. These results also only really allow us to draw conclusions about
+the effectiveness of these methods given the relatively small training set used
+to train them. It may be for example that the accuracy of neural nets scales
+much faster as the amount of training data is increased in comparison to CBR.
+
+Also the means are quite similar. We can use the t-test / anova 
+test to determine if they are statistically different.
+
+-------------------------------------------------------------------------------
+
+We would expect neural networks to be robust to errors in training data because 
+of the number of factors considered in making final decision and the fact that 
+output is not constrained to simple binary 0/1. Also in our network, the use 
+of a validation set should help to avoid overfitting to training data.
+
+In contrast our decision tree does not have any mechanism to prevent overfitting
+(such as the pruning discussed in our first report) and therefore might be
+expected to perform worse on the unseen and noisy data set. It is possible for
+the decision tree to be more affected by noise as a single extra AU might cause
+early incorrect classification. Unlike neural nets and CBR the trees can make a
+decision without considering all aspects of the new problem.
+
+CBR more robust due to 'leeway' given by similarity to noise (again as opposed 
+to single decision in trees)?
+
+-------------------------------------------------------------------------------
+
+
