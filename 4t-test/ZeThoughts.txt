@@ -1,0 +1,13 @@
+-----------Clean Data Training noisy data testing results analysis:------------------
+
+From the f1 measures, we can see that overall on average, CBR is just a bit better than Neural Networks and Decision Trees, which both have near identical measures. Our implementation of the CBR uses KNN which when choosing  cases by similarity so this could allow more room for errors and noise in the data set.
+
+The results suggest that certain emotions are far easier to classify for all the three methods whilst there are also emotions that seem to be just harder to classify correctly for certain methods but is not the case for others. For example, surprise, happyness and disgust all appear to be much easier to identitfy for all three methods, but anger is hardest to classify correctly for decision trees and CBR but is significantly better for neural networks. One could suggest if these methods were to be used for more real life practical usages, then a mixture of the classifiers could - yield better results.
+
+--------------------------------------------------------------------------
+
+--------------------Extending the emotion classes----------------------------------------
+
+When it comes to extending the emotion classes, Neural networks would be most difficult because it alters the network topology and would require retraining of the network. It would be very difficult to have a dynamic neural network that could adapt to new classifications being introduced. Decision trees may also require retraining to calculate the information gain (need to think this through more) but could just mean the creation of another tree.
+
+Case based reasoning would be easiest to modify to adapt to further emotions, it could also be modified to dymanically create new classifications if we assumed any further emotions would vary in similarity of cases by more than a threshold. For example if a new case were given that to an existing CBR is for a completely new emotion, then the code could be altered to add another cluster for this case if it was below a threshold of similarity (say 0.3 or 0 if using our 3rd method) when compared with all existing cases from existing clusters. The amount of change in the code required for this extension is very small compared to that of decision trees and of neural networks. Further to this, CBR would not require retraining.
